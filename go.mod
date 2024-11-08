@@ -1,4 +1,4 @@
-module github.com/gzuidhof/tygo
+module github.com/fkhadra/tygo
 
 go 1.21
 

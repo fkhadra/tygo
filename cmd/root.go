@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/gzuidhof/tygo/config"
-	"github.com/gzuidhof/tygo/tygo"
+	"github.com/fkhadra/tygo/config"
+	"github.com/fkhadra/tygo/tygo"
 	"github.com/spf13/cobra"
 )
 
