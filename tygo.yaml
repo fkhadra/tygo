@@ -57,6 +57,7 @@ packages:
   - path: "github.com/fkhadra/tygo/examples/rune"
   # Only output struct fields that matches the specified tags
   - path: "github.com/fkhadra/tygo/examples/tags"
+    exclude_empty_structs: true
     match_tags:
       - "json"
       - "yaml"

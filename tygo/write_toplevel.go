@@ -111,6 +111,14 @@ func (g *PackageGenerator) writeTypeSpec(
 
 	st, isStruct := ts.Type.(*ast.StructType)
 	if isStruct {
+		var sb strings.Builder
+
+		g.writeStructFields(&sb, st.Fields.List, 0)
+
+		if g.conf.ExcludeEmptyStructs && sb.Len() == 0 {
+			return
+		}
+
 		s.WriteString("export interface ")
 		s.WriteString(ts.Name.Name)
 		if g.conf.Extends != "" {
@@ -124,7 +132,7 @@ func (g *PackageGenerator) writeTypeSpec(
 
 		g.writeTypeInheritanceSpec(s, st.Fields.List)
 		s.WriteString(" {\n")
-		g.writeStructFields(s, st.Fields.List, 0)
+		s.WriteString(sb.String())
 		s.WriteString("}")
 	}
 

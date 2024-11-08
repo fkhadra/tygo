@@ -5,3 +5,8 @@ type User struct {
 	Password         string
 	ShouldBeIncluded int `yaml:"should_be_included"`
 }
+
+type WillBeExcluded struct {
+	Hello string
+	World string
+}

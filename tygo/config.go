@@ -37,6 +37,9 @@ type PackageConfig struct {
 	// Useful if you want to output only struct fields with json tags for example.
 	MatchTags []string `yaml:"match_tags"`
 
+	// Prevents empty structs from being generated
+	ExcludeEmptyStructs bool `yaml:"exclude_empty_structs"`
+
 	// Filenames of Go source files that should be included in the Typescript output.
 	IncludeFiles []string `yaml:"include_files"`
 
