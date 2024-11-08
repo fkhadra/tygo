@@ -55,5 +55,10 @@ packages:
     exclude_files: 
       - "excluded.go"
   - path: "github.com/gzuidhof/tygo/examples/rune"
+  # Only output struct fields that matches the specified tags
+  - path: "github.com/gzuidhof/tygo/examples/tags"
+    match_tags:
+      - "json"
+      - "yaml"
 
 

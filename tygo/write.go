@@ -6,6 +6,7 @@ import (
 	"go/ast"
 	"go/token"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -285,12 +286,26 @@ func (g *PackageGenerator) writeInterfaceFields(
 	}
 }
 
+func (g *PackageGenerator) matchTags(tags *structtag.Tags) bool {
+	for _, t := range tags.Tags() {
+		if slices.Contains(g.conf.MatchTags, t.Key) {
+			return true
+		}
+	}
+	return false
+}
+
 func (g *PackageGenerator) writeStructFields(s *strings.Builder, fields []*ast.Field, depth int) {
 	for _, f := range fields {
 		// fmt.Println(f.Type)
 		optional := false
 		required := false
 		readonly := false
+		shouldMatchTags := len(g.conf.MatchTags) > 0
+
+		if shouldMatchTags && f.Tag == nil {
+			continue
+		}
 
 		var fieldName string
 		if len(f.Names) == 0 { // anonymous field
@@ -311,6 +326,10 @@ func (g *PackageGenerator) writeStructFields(s *strings.Builder, fields []*ast.F
 			tags, err := structtag.Parse(f.Tag.Value[1 : len(f.Tag.Value)-1])
 			if err != nil {
 				panic(err)
+			}
+
+			if shouldMatchTags && !g.matchTags(tags) {
+				continue
 			}
 
 			jsonTag, err := tags.Get("json")

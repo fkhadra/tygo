@@ -33,6 +33,10 @@ type PackageConfig struct {
 	// Filenames of Go source files that should not be included in the Typescript output.
 	ExcludeFiles []string `yaml:"exclude_files"`
 
+	// Includes struct fields only when it contains the specified struct tags
+	// Useful if you want to output only struct fields with json tags for example.
+	MatchTags []string `yaml:"match_tags"`
+
 	// Filenames of Go source files that should be included in the Typescript output.
 	IncludeFiles []string `yaml:"include_files"`
 
